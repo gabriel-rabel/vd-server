@@ -80,7 +80,7 @@ businessRoute.post("/login", async (req, res) => {
     } else {
       //senhas diferentes, não pode fazer login
       throw new Error(
-        "Email ou senha não são válidos. Por favor tenta novamente."
+        "Email ou senha não são válidos. Por favor tente novamente."
       );
     }
   } catch (error) {
@@ -123,9 +123,11 @@ businessRoute.put("/edit", isAuth, async (req, res) => {
         
     } catch (error) {
         console.log(error);
+        
         return res.status(500).json(error);
         
     }
+  
 })
 
 
