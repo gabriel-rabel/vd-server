@@ -220,4 +220,8 @@ jobRouter.post("/unapply/:id_job", isAuth, async (req, res) => {
 
   })
 
+
+
+
+
 export default jobRouter;

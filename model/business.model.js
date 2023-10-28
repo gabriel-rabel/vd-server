@@ -3,33 +3,34 @@ import { Schema, model } from "mongoose";
 const businessSchema = new Schema(
    {
       name: { type: String, required: true, trim: true },
-
+      cnpj: { type: String, trim: true, unique: true, match: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/ },
       email: {
          type: String,
          required: true,
          unique: true,
          trim: true,
-         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/, // math = regex
+         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/, // match = regex
       },
-
       logo: {
          type: String,
          default: "https://cdn.wallpapersafari.com/92/63/wUq2AY.jpg",
       },
-
       role: { type: String, enum: ["ADMIN", "BUSINESS"], default: "BUSINESS" },
-
-      telefone: { type: String, required: true, trim: true },
-
+      phone: { type: String, required: true, trim: true },
       passwordHash: { type: String, required: true },
-
-      active: {type: Boolean, default: true},
-
-      description: {type: String},
-
-      offers: [ {type: Schema.Types.ObjectId, ref: "Job"} ], 
+      active: { type: Boolean, default: true },
+      description: { type: String },
+      offers: [{ type: Schema.Types.ObjectId, ref: "Job" }],
+      address: {
+         street: { type: String, trim: true },
+         number: { type: String, trim: true },
+         neighborhood: { type: String, trim: true },
+         cep: { type: String, trim: true },
+         complement: { type: String, trim: true },
+         city: { type: String, trim: true },
+         state: { type: String, trim: true },
+      }
    },
-   // o que mais eu posso colocar nas opcoes do schema?
    { timestamps: true }
 );
 

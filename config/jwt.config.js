@@ -7,7 +7,7 @@ export default function generateToken(user) {
   const signature = process.env.TOKEN_SIGN_SECRET;
 
   //tempo de expiração (padrão da industria é 12h)
-  const expiration = "12h";
+  //const expiration = "60000"; removido temporariamente até definir o tempo de expiração e o refresh token
 
   return jwt.sign(
     {
@@ -20,7 +20,7 @@ export default function generateToken(user) {
     signature, //assinatura do token
     {
       //objeto de configuração determinando a validade do token
-      expiresIn: expiration,
+      //expiresIn: expiration,
     }
   );
 }
