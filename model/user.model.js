@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
    {
-      name: { type: String, required: true, trim: true },
+      name: { type: String, required: true, trim: true, lowercase: true, minlength: 3, maxlength: 50 },
 
       email: {
          type: String,
@@ -22,6 +22,7 @@ const userSchema = new Schema(
       phone: { type: String, required: true, trim: true },
 
       passwordHash: { type: String, required: true },
+      resetPassword: { type: String, default: "" },
 
       active: {type: Boolean, default: true},
 

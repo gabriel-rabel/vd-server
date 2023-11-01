@@ -18,7 +18,7 @@ cloudinaryInst.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinaryInst,
     params: {
-        folder: "103WEBDEV",
+        folder: "VAGASDAQUI",
         allowed_formats: ["jpg", "png", "pdf"], //archives format
     },
 
