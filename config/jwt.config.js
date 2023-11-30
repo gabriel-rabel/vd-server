@@ -22,5 +22,6 @@ export default function generateToken(user) {
       //objeto de configuração determinando a validade do token
       //expiresIn: expiration,
     }
+    
   );
 }
