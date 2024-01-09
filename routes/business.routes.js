@@ -78,33 +78,38 @@ businessRoute.post("/login", async (req, res) => {
       throw new Error("Por favor, preencha todos os dados!");
     }
 
-    // procuro o user pelo email dentro do banco de dados
+    // procuro o usuário pelo email dentro do banco de dados
     const business = await BusinessModel.findOne({ email: form.email });
 
-    //compare() também retorna TRUE se for igual as senhas e retorna FALSE se a senha não foi igual!!
-    if (await bcrypt.compare(form.password, business.passwordHash)) {
-      //senhas iguais, pode fazer login
+    if (business) {
+      // Se o usuário for encontrado, compare as senhas
+      if (await bcrypt.compare(form.password, business.passwordHash)) {
+        // Senhas iguais, pode fazer login
 
-      //gerar um token
-      const token = generateToken(business);
+        // Gerar um token
+        const token = generateToken(business);
 
-      // Remove the passwordHash from the user object to avoid returning the hashed password in the response (for security reasons)
-      business.passwordHash = undefined;
+        // Remover o passwordHash do objeto de usuário para evitar retornar a senha criptografada na resposta (por motivos de segurança)
+        business.passwordHash = undefined;
 
-      return res.status(200).json({
-        user: business,
-        token: token,
-      });
+        return res.status(200).json({
+          user: business,
+          token: token,
+        });
+      } else {
+        // Senhas diferentes, não pode fazer login
+        throw new Error(
+          "Email ou senha não são válidos. Por favor tente novamente."
+        );
+      }
     } else {
-      //senhas diferentes, não pode fazer login
-      throw new Error(
-        "Email ou senha não são válidos. Por favor tente novamente."
-      );
+      // Usuário não encontrado com o email fornecido
+      throw new Error("Usuário não encontrado com o email fornecido.");
     }
   } catch (error) {
-    //handler error
+    // Manipular erro
     console.log(error);
-    return res.status(500).json(error);
+    return res.status(500).json({ error: error.message });
   }
 });
 
