@@ -217,7 +217,8 @@ businessRoute.post("/forgot-password", async (req, res) => {
       // Codifica o token usando Base64Url
       const encodedToken = jseu.encoder.encodeBase64Url(tokenArrayBuffer);
 
-      const resetPasswordLink = `http://localhost:5173/business/reset-password/${encodedToken}`;
+      //const resetPasswordLink = `http://localhost:5173/business/reset-password/${encodedToken}`;
+      const resetPasswordLink = `https://vagasdaqui.com.br/business/reset-password/${encodedToken}`;
       const mailOptions = {
         from: process.env.NODEMAILER_USER,
         to: business.email,
